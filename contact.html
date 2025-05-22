@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background: linear-gradient(120deg, #232526 0%, #414345 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: #f5f5f5;
+            margin: 0;
+            min-height: 100vh;
+        }
+        nav {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(90deg, #232526 0%, #414345 100%);
+            padding: 0 32px;
+            height: 64px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            border-bottom: 2px solid #ffd70022;
+        }
+        nav a {
+            color: #fff;
+            text-decoration: none;
+            margin-right: 22px;
+            font-size: 1.08em;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            padding: 8px 10px;
+            border-radius: 5px;
+            transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+            display: flex;
+            align-items: center;
+            height: 40px;
+        }
+        nav a:last-child {
+            margin-right: 0;
+        }
+        nav a.active, nav a[aria-current="page"] {
+            background: #ffd700;
+            color: #232526;
+            font-weight: bold;
+            box-shadow: 0 2px 8px #ffd70044;
+            cursor: default;
+        }
+        nav a:hover:not(.active):not([aria-current="page"]) {
+            background: #ffd70033;
+            color: #ffd700;
+        }
+        nav img {
+            height: 40px;
+            margin-right: 24px;
+            border-radius: 8px;
+            background: #fff;
+            padding: 2px;
+            box-shadow: 0 1px 4px #0002;
+        }
+        @media (max-width: 700px) {
+            nav {
+                flex-direction: column;
+                align-items: flex-start;
+                height: auto;
+                padding: 12px 4vw;
+            }
+            nav img {
+                margin-bottom: 10px;
+            }
+            nav a {
+                margin-right: 12px;
+                margin-bottom: 6px;
+            }
+        }
+        main {
+            background: rgba(34, 34, 34, 0.97);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+            padding: 40px 32px 32px 32px;
+            margin-top: 40px;
+        }
+        h1, h2 {
+            color: #ffd700;
+            margin-bottom: 18px;
+        }
+        form {
+            background: rgba(255,255,255,0.04);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        label {
+            display: flex;
+            flex-direction: column;
+            font-weight: 500;
+            color: #fff;
+        }
+        input[type="text"], input[type="email"], textarea {
+            margin-top: 6px;
+            padding: 12px;
+            border: 2px solid #444;
+            border-radius: 8px;
+            background: #fffbe8;
+            color: #232526;
+            font-size: 1.08em;
+            font-weight: 500;
+            transition: box-shadow 0.2s, border-color 0.2s, background 0.2s;
+            box-shadow: 0 2px 8px rgba(255,215,0,0.10), 0 1px 2px rgba(0,0,0,0.10);
+        }
+        input[type="text"]:focus, input[type="email"]:focus, textarea:focus {
+            outline: none;
+            border-color: #ffd700;
+            background: #fffde4;
+            box-shadow: 0 0 0 3px #ffd70055, 0 2px 8px rgba(255,215,0,0.13);
+        }
+        button[type="submit"] {
+            background: linear-gradient(90deg, #ffd700 0%, #ffb300 100%);
+            color: #222;
+            border: none;
+            border-radius: 6px;
+            padding: 12px 0;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s, color 0.2s;
+        }
+        button[type="submit"]:hover {
+            background: linear-gradient(90deg, #ffb300 0%, #ffd700 100%);
+            color: #111;
+        }
+        section {
+            background: rgba(255,255,255,0.03);
+            border-radius: 10px;
+            padding: 18px 20px;
+            margin-top: 32px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.07);
+        }
+        section h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+        .social-logos {
+            display: flex;
+            gap: 36px;
+            align-items: center;
+            justify-content: center;
+            margin-top: 18px;
+            margin-bottom: 8px;
+        }
+        .social-logos a img {
+            filter: grayscale(0.2) brightness(0.95);
+            transition: transform 0.2s, filter 0.2s;
+            height: 54px;
+            width: 54px;
+            max-width: 100%;
+        }
+        .social-logos a:hover img {
+            transform: scale(1.15) rotate(-3deg);
+            filter: grayscale(0) brightness(1.1);
+        }
+        @media (max-width: 700px) {
+            main {
+                padding: 18px 4vw;
+            }
+            section {
+                padding: 12px 2vw;
+            }
+            .social-logos {
+                gap: 18px;
+            }
+            .social-logos a img {
+                height: 38px;
+                width: 38px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav>
+        <a href="index.html">
+            <img src="logo.png" alt="Logo">
+        </a>
+        <a href="index.html">Accueil</a>
+        <a href="brawl-stars.html">Brawl Stars</a>
+        <a href="among-us.html">Among Us</a>
+        <a href="switch-sports.html">Switch Sports</a>
+        <a href="contact.html" class="active" aria-current="page">Contact</a>
+    </nav>
+
+    <main style="max-width: 600px; margin: 40px auto;">
+        <h1>Contactez-nous</h1>
+        <!-- Formulaire de contact -->
+        <form action="mailto:jules.fuselier@etu.univ-amu.fr" method="POST" enctype="text/plain" style="display: flex; flex-direction: column; gap: 15px;">
+            <label>
+                Nom :
+                <input type="text" name="nom" required>
+            </label>
+            <label>
+                Email :
+                <input type="email" name="email" required>
+            </label>
+            <label>
+                Message :
+                <textarea name="message" rows="5" required></textarea>
+            </label>
+            <button type="submit">Envoyer</button>
+        </form>
+
+        <!-- Réseaux sociaux -->
+        <section style="margin-top: 40px;">
+            <h2>Retrouvez-nous sur les réseaux</h2>
+            <div class="social-logos">
+                <a href="https://instagram.com/" target="_blank" title="Instagram">
+                    <img src="instagram.svg" alt="Instagram">
+                </a>
+                <a href="https://facebook.com/events/" target="_blank" title="Facebook Event">
+                    <img src="facebook.png" alt="Facebook Event">
+                </a>
+                <a href="https://tiktok.com/" target="_blank" title="TikTok">
+                    <img src="tiktok.svg" alt="TikTok">
+                </a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

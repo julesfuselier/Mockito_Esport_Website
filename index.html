@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockito Esport - Inscriptions ouvertes !</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+        }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        nav {
+            background-color: var(--dark);
+            padding: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        nav .logo {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            margin-right: auto;
+        }
+        
+        nav .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: white;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            display: block;
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .hero {
+            background: url('banner_from_AI.png') center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-margin-top {
+            margin-top: 1rem;
+        }
+        
+        section {
+            padding: 3rem 1rem;
+        }
+        
+        .game-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .game-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .game-content {
+            padding: 1.5rem;
+        }
+        
+        .game-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .registration-form {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .player-input {
+            background-color: #f8f9fa;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .game-tag {
+            background-color: var(--accent);
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-left: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero {
+                height: 300px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+                display: none;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav .menu-toggle {
+                display: block;
+            }
+        }
+
+        nav .logo img {
+            border-radius: 12px;
+            height: 100%;
+            max-height: 50px;
+            width: auto;
+            object-fit: cover;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<nav>
+    <a href="#accueil" class="logo"><img src="logo.png" width="64" height="64" alt="Logo"></a>
+    <span class="menu-toggle">☰</span>
+    <ul>
+        <li><a href="#accueil">Accueil</a></li>
+        <li><a href="brawl-stars.html">Brawl Stars</a></li>
+        <li><a href="among-us.html">Among Us</a></li>
+        <li><a href="switch-sports.html">Wii Sports</a></li>
+    </ul>
+</nav>
+
+<section id="accueil" class="hero">
+    <div class="hero-content">
+        <h2>Un tournoi gaming pour tous les niveaux</h2>
+        <p>Rejoignez notre événement communautaire avec Brawl Stars comme jeu principal et d'autres activités pour s'amuser ensemble !</p>
+    </div>
+</section>
+
+<section id="jeux" class="container">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Nos Jeux</h2>
+    
+    <div class="game-card">
+        <img src="https://static.wixstatic.com/media/d8ef5f_6aa74812a02a4e58bc7c16b7bbe2495b~mv2.png/v1/fill/w_1000,h_596,al_c,q_90,usm_0.66_1.00_0.01/d8ef5f_6aa74812a02a4e58bc7c16b7bbe2495b~mv2.png" alt="Brawl Stars">
+        <div class="game-content">
+            <h3>Brawl Stars</h3>
+            <p>Notre jeu principal en compétition 3v3. Formez votre équipe et montrez votre talent !</p>
+            <ul style="margin-top: 1rem;">
+                <li>Format: 3 contre 3</li>
+                <li>Prix pour les gagnants</li>
+                <li>Ambiance garantie</li>
+            </ul>
+            <div style="text-align: center;">
+                <button class="btn btn-margin-top">
+                    <a href="brawl-stars.html" style="color: white; text-decoration: none;">Inscrivez-vous !</a>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="game-card">
+        <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/945360/header.jpg" alt="Among Us">
+        <div class="game-content">
+            <h3>Among Us</h3>
+            <p>Un jeu de déduction sociale pour créer des liens entre participants dans une ambiance détendue.</p>
+            <ul style="margin-top: 1rem;">
+                <li>Format: 4-15 joueurs</li>
+                <li>Parties rapides et amusantes</li>
+                <li>Parfait pour les menteurs</li>
+            </ul>
+            <div style="text-align: center;">
+                <button class="btn btn-margin-top">
+                    <a href="among-us.html" style="color: white; text-decoration: none;">Inscrivez-vous !</a>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="game-card">
+        <img src="https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:eco/f_auto/ncom/en_US/games/switch/n/nintendo-switch-sports-switch/hero" alt="Nintendo Switch Sports">
+        <div class="game-content">
+            <h3>Nintendo Switch Sports</h3>
+            <p>Compétition amicale sur Nintendo Switch avec différents sports virtuels. Fun garanti !</p>
+            <ul style="margin-top: 1rem;">
+                <li>Plusieurs sports disponibles</li>
+                <li>Accessible à tous les niveaux</li>
+                <li>Matériel fourni sur place</li>
+            </ul>
+            <div style="text-align: center;">
+                <a href="switch-sports.html" style="color: white; text-decoration: none;" class="btn">Inscrivez-vous !</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <!-- ...existing code... -->
+    <div style="margin-top: 1rem; font-size: 0.9rem;">
+        <p>Site réalisé par l'équipe composé de : Ali, Hugo, Simon, Lilian, Alexandre et Jules</p>
+        <p>Crédits images : Unsplash, Wix, Steam, Nintendo.</p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.querySelector('nav ul');
+
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+    });
+</script>
+</html>

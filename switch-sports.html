@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nintendo Switch Sports - Rejoindre ou Créer une Partie</title>
+    <style>
+        :root {
+            --primary-color: #1E90FF; /* Bleu Dodger pour un ton principal doux */
+            --secondary-color: #87CEEB; /* Bleu ciel pour les accents */
+            --success-color: #28a745;
+            --light-color: #F0F8FF; /* Bleu très clair pour les fonds */
+            --dark-color: #2C3E50; /* Bleu foncé pour le texte et les contrastes */
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+        
+        /* Barre de navigation */
+        .navbar {
+            background-color: var(--primary-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            color: var(--light-color);
+            font-weight: bold;
+            font-size: 1.5rem;
+            text-decoration: none;
+            margin-right: auto;
+        }
+
+        .nav-logo img {
+            border-radius: 12px;
+            height: 100%;
+            max-height: 50px; /* Ajuste la hauteur maximale pour qu'elle s'adapte à la navbar */
+            width: auto;
+            object-fit: cover;
+            vertical-align: middle;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-link {
+            color: var(--light-color);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            position: relative;
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.05); /* More transparent hitbox */
+            border-radius: 5px;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(255,255,255,0.2);
+        }
+
+        .hero {
+            background: url('https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:eco/f_auto/ncom/en_US/games/switch/n/nintendo-switch-sports-switch/hero') center/cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            margin-top: -1px;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+        }
+        
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(30, 144, 255, 0.3)); /* Douce transition bleue */
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: -30px auto 0;
+            padding: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .registration-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .btn-create {
+            background-color: var(--primary-color);
+            color: var(--light-color);
+        }
+        
+        .btn-join {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+        
+        .existing-games {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid var(--secondary-color);
+        }
+        
+        h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+        }
+        
+        .game-card {
+            background-color: var(--light-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--primary-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .game-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .game-creator {
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+        }
+        
+        .participants-list {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #ccc;
+        }
+        
+        .participant {
+            display: inline-block;
+            background-color: rgba(30, 144, 255, 0.2); /* Bleu translucide */
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            color: var(--dark-color);
+        }
+        
+        .no-games {
+            text-align: center;
+            color: var(--dark-color);
+            padding: 2rem;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+            }
+
+            .hero {
+                height: 300px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .registration-form {
+                padding: 1rem;
+            }
+
+            .btn {
+                font-size: 0.9rem;
+            }
+
+            .game-card {
+                padding: 1rem;
+            }
+        }
+
+        /* Navbar collapsible menu */
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background-color: var(--light-color);
+            margin: 3px 0;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                gap: 1rem;
+                width: 100%;
+                background-color: var(--primary-color);
+                padding: 1rem;
+                border-radius: 5px;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navToggle = document.querySelector('.nav-toggle');
+            const navLinks = document.querySelector('.nav-links');
+
+            navToggle.addEventListener('click', function () {
+                navLinks.classList.toggle('active');
+            });
+        });
+    </script>
+    <!-- Barre de navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><img src="logo.png" width="64" height="64" alt="Logo"></a>
+            <button class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Accueil</a>
+                <a href="brawl-stars.html" class="nav-link">Brawl Stars</a>
+                <a href="among-us.html" class="nav-link">Among Us</a>
+                <a href="switch-sports.html" class="nav-link">Switch Sports</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Nintendo Switch Sports</h1>
+            <p>Participez à des compétitions amicales et amusez-vous avec vos amis !</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <h2>Rejoindre ou Créer une Partie</h2>
+        
+        <form id="game-form" class="registration-form">
+            <div class="form-group">
+                <label for="player-name">Votre Nom *</label>
+                <input type="text" id="player-name" name="player-name" required placeholder="Votre pseudo">
+            </div>
+            
+            <div class="form-group">
+                <label for="player-email">Votre Email *</label>
+                <input type="email" id="player-email" name="player-email" required placeholder="votre@email.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="game-name">Nom de la Partie *</label>
+                <input type="text" id="game-name" name="game-name" required placeholder="Nom de la partie">
+            </div>
+            
+            <div class="form-group">
+                <button type="button" id="create-game" class="btn btn-create">Créer une Partie</button>
+                <button type="button" id="join-game" class="btn btn-join">Rejoindre une Partie</button>
+            </div>
+        </form>
+        
+        <div id="existing-games" class="existing-games">
+            <h2>Parties Existantes</h2>
+            <div id="games-list">
+                <div class="no-games">
+                    <p>Aucune partie disponible pour le moment. Créez-en une pour commencer !</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const createGameBtn = document.getElementById('create-game');
+            const joinGameBtn = document.getElementById('join-game');
+            const gamesList = document.getElementById('games-list');
+            
+            // Charger les parties depuis le localStorage
+            let games = JSON.parse(localStorage.getItem('switchSportsGames')) || [];
+            
+            // Afficher les parties au chargement
+            updateGamesList();
+
+            // Créer une partie
+            createGameBtn.addEventListener('click', function() {
+                const playerName = document.getElementById('player-name').value.trim();
+                const playerEmail = document.getElementById('player-email').value.trim();
+                const gameName = document.getElementById('game-name').value.trim();
+
+                if (!playerName || !playerEmail || !gameName) {
+                    alert('Veuillez remplir tous les champs pour créer une partie.');
+                    return;
+                }
+
+                // Vérifier si la partie existe déjà
+                const existingGame = games.find(g => g.name.toLowerCase() === gameName.toLowerCase());
+                if (existingGame) {
+                    alert(`La partie "${gameName}" existe déjà. Veuillez choisir un autre nom.`);
+                    return;
+                }
+
+                // Ajouter la partie à la liste
+                const newGame = { 
+                    name: gameName, 
+                    creator: playerName,
+                    participants: [playerName],
+                    createdAt: new Date().toISOString()
+                };
+                
+                games.push(newGame);
+                saveGames();
+                updateGamesList();
+                
+                // Réinitialiser le champ du nom de partie
+                document.getElementById('game-name').value = '';
+                
+                alert(`La partie "${gameName}" a été créée avec succès !`);
+            });
+
+            // Rejoindre une partie
+            joinGameBtn.addEventListener('click', function() {
+                const playerName = document.getElementById('player-name').value.trim();
+                const playerEmail = document.getElementById('player-email').value.trim();
+                const gameName = document.getElementById('game-name').value.trim();
+
+                if (!playerName || !playerEmail || !gameName) {
+                    alert('Veuillez remplir tous les champs pour rejoindre une partie.');
+                    return;
+                }
+
+                const gameIndex = games.findIndex(g => g.name.toLowerCase() === gameName.toLowerCase());
+                
+                if (gameIndex !== -1) {
+                    // Vérifier si le joueur est déjà dans la partie
+                    if (!games[gameIndex].participants.includes(playerName)) {
+                        games[gameIndex].participants.push(playerName);
+                        saveGames();
+                        updateGamesList();
+                        alert(`Vous avez rejoint la partie "${games[gameIndex].name}" créée par ${games[gameIndex].creator}.`);
+                    } else {
+                        alert(`Vous avez déjà rejoint la partie "${games[gameIndex].name}".`);
+                    }
+                } else {
+                    alert(`La partie "${gameName}" n'existe pas. Veuillez vérifier le nom et réessayez.`);
+                }
+            });
+
+            // Sauvegarder les parties dans le localStorage
+            function saveGames() {
+                localStorage.setItem('switchSportsGames', JSON.stringify(games));
+            }
+
+            // Mettre à jour la liste des parties
+            function updateGamesList() {
+                if (games.length === 0) {
+                    gamesList.innerHTML = `
+                        <div class="no-games">
+                            <p>Aucune partie disponible pour le moment. Créez-en une pour commencer !</p>
+                        </div>
+                    `;
+                } else {
+                    // Trier les parties par date de création (les plus récentes en premier)
+                    const sortedGames = [...games].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    
+                    gamesList.innerHTML = sortedGames.map(game => `
+                        <div class="game-card">
+                            <div class="game-title">${game.name}</div>
+                            <div class="game-creator">Créée par: ${game.creator} • ${new Date(game.createdAt).toLocaleString('fr-FR')}</div>
+                            <div class="participants-list">
+                                <strong>Participants (${game.participants.length}):</strong>
+                                ${game.participants.map(p => `<span class="participant">${p}</span>`).join('')}
+                            </div>
+                        </div>
+                    `).join('');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
